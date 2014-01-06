@@ -1,13 +1,19 @@
 /*global rendr*/
 var fs = require('fs');
 
-module.exports = function(Handlebars) {
+module.exports = function(jade) {
   return {
     getLayout: function(name, callback) {
-      var layoutPath = rendr.entryPath + '/app/templates/' + name + '.hbs';
+      var layoutPath = rendr.entryPath + '/app/templates/' + name + '.jade';
       fs.readFile(layoutPath, 'utf8', function (err, str) {
         if (err) return callback(err);
-        var template = Handlebars.compile(str);
+        
+        console.log("hidsfvhfdvuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuhs");
+        console.log(jade._globals);
+        var template = jade.compile(str, {
+          globals: jade._globals,
+          filename: '/app/templates/' + name + '.jade'
+        });
         callback(null, template);
       });
     }

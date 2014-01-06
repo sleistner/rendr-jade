@@ -34,7 +34,7 @@ module.exports = function(Handlebars, getTemplate) {
 
       // create the outerHTML using className, tagName
       html = view.getHtml();
-      return new Handlebars.SafeString(html);
+      return html;
     },
 
     partial: function(templateName, options) {

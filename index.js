@@ -1,10 +1,10 @@
-var Handlebars = require('handlebars')
-  , templateFinder = require('./shared/templateFinder')(Handlebars);
+var jade = require('jade')
+  , templateFinder = require('./shared/templateFinder')(jade);
 
 /**
- * Export the `Handlebars` object, so other modules can add helpers, partials, etc.
+ * Export a global opject so people can add locals, helpers, etc.
  */
-exports.Handlebars = Handlebars;
+exports.globals = jade._globals = {};
 
 /**
  * `getTemplate` is available on both client and server.
@@ -20,7 +20,7 @@ exports.templatePatterns = templateFinder.templatePatterns;
  * `getLayout` should only be used on the server.
  */
 if (typeof window === 'undefined') {
-  exports.getLayout = require('./server/layoutFinder')(Handlebars).getLayout;
+  exports.getLayout = require('./server/layoutFinder')(jade).getLayout;
 } else {
   exports.getLayout = function() {
     throw new Error('getLayout is only available on the server.');
@@ -33,16 +33,16 @@ if (typeof window === 'undefined') {
  * Export it so other modules can register helpers as well.
  */
 exports.registerHelpers = function registerHelpers(helpersModule) {
-  var helpers = helpersModule(Handlebars, exports.getTemplate);
+  var helpers = helpersModule(jade, exports.getTemplate);
 
   for (var key in helpers) {
     if (!helpers.hasOwnProperty(key)) continue;
-    Handlebars.registerHelper(key, helpers[key]);
+    jade._globals[key] = helpers[key];
   }
 };
 
 /**
  * Register the pre-bundled Rendr helpers.
  */
-var rendrHelpers = require('./shared/helpers');
-exports.registerHelpers(rendrHelpers);
+//var rendrHelpers = require('./shared/helpers');
+//exports.registerHelpers(rendrHelpers);

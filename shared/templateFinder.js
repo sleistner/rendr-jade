@@ -1,7 +1,7 @@
 /*global rendr*/
 var cachedTemplates = {};
 
-module.exports = function(Handlebars) {
+module.exports = function(jade) {
 
   /**
    * Provide a way for apps to specify that different template name patterns
@@ -27,7 +27,8 @@ module.exports = function(Handlebars) {
     /**
      * Allow compiledTemplates to be created asynchronously.
      */
-    cachedTemplates[src] = cachedTemplates[src] || require(src)(Handlebars);
+    console.log(src);
+    cachedTemplates[src] = cachedTemplates[src] || require(src);
     return cachedTemplates[src][templateName];
   }
 
