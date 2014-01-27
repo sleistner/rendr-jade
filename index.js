@@ -4,7 +4,7 @@ var jade = require('jade')
 /**
  * Export a global opject so people can add locals, helpers, etc.
  */
-exports.globals = jade._globals = {};
+// exports.globals = jade._globals = [];
 
 /**
  * `getTemplate` is available on both client and server.

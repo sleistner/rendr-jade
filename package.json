@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/Acconut/rendr-jade.git"
+    "url": "http://github.com/rorcraft/rendr-jade.git"
   },
   "dependencies": {
     "underscore": "~1.4.4",

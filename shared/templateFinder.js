@@ -27,8 +27,7 @@ module.exports = function(jade) {
     /**
      * Allow compiledTemplates to be created asynchronously.
      */
-    console.log(src);
-    cachedTemplates[src] = cachedTemplates[src] || require(src);
+    cachedTemplates[src] = cachedTemplates[src] || require(src)(jade);
     return cachedTemplates[src][templateName];
   }
 
