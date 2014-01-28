@@ -1,13 +1,7 @@
-/**
- * We have to define the global `rendr`, which has an `entryPath` property.
- * This is a reminder that globals are *bad*.
- */
-global.rendr = {
-  entryPath: process.cwd() + '/test/fixtures'
-};
+var assert = require('assert'),
+    entryPath = process.cwd() + '/test/fixtures/',
+    templateAdapter = require('../../index')({entryPath: entryPath});
 
-var assert = require('assert')
-  , templateAdapter = require('../../index');
 
 describe('templateFinder', function() {
   describe('getTemplate', function() {
@@ -21,7 +15,7 @@ describe('templateFinder', function() {
        */
       templateAdapter.templatePatterns.unshift({
         pattern: /^other_template_pattern\//,
-        src: rendr.entryPath + '/app/templates/otherTemplates'
+        src: entryPath + '/app/templates/otherTemplates'
       });
 
       assert.equal('function', typeof templateAdapter.getTemplate('other_template_pattern/home_view'));

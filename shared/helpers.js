@@ -5,7 +5,7 @@ var BaseView = null,
     modelUtils = null;
 
 module.exports = function(Handlebars, getTemplate) {
-  var oldEach = Handlebars.helpers.each;
+  // var oldEach = Handlebars.helpers.each;
 
   return {
     view: function(viewName, options) {
@@ -82,7 +82,7 @@ module.exports = function(Handlebars, getTemplate) {
       _.extend(options.data, getOptionsFromContext(this));
 
       // Call the original helper with new context.
-      return oldEach.call(this, context, options);
+      // return oldEach.call(this, context, options);
     }
   };
 };
