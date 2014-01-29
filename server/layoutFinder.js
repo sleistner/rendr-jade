@@ -1,6 +1,6 @@
 /*global rendr*/
 var fs = require('fs');
-
+var _ = require('underscore');
 module.exports = function(jade) {
   return {
     getLayout: function(name, entryPath, callback) {
@@ -11,7 +11,11 @@ module.exports = function(jade) {
         var template = jade.compile(str, {
           filename: '/app/templates/' + name + '.jade'
         });
-        callback(null, template);
+        var extendedTemplate = function(locals) {
+          _.extend(locals, jade.helpers);
+          return template.call(locals, locals);
+        };
+        callback(null, extendedTemplate);
       });
     }
   }

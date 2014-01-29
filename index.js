@@ -1,7 +1,13 @@
 var jade = require('jade')
 module.exports = function(options) {
   var localExports = {},
-      templateFinder = require('./shared/templateFinder')(jade);
+      templateFinder = require('./shared/templateFinder')(jade),
+      helpers = require('./shared/helpers')(jade, templateFinder);
+  /**
+   * helpers
+   */
+  localExports.helpers = jade.helpers = helpers;
+
   /**
    * `getTemplate` is available on both client and server.
    */

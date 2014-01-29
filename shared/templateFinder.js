@@ -1,6 +1,6 @@
 /*global rendr*/
 var cachedTemplates = {};
-
+var _ = require('underscore');
 module.exports = function(jade) {
 
   /**
@@ -26,7 +26,19 @@ module.exports = function(jade) {
         cachedTemplates[src] = cachedTemplates[src](jade);
       }
     }
-    return cachedTemplates[src][templateName];
+    var template = cachedTemplates[src][templateName];
+    // replace template with extendedtemplate
+    if(!template.extended) {
+      var extendedTemplate = function(locals) {
+        _.extend(locals, jade.helpers);
+        return template(locals, locals);
+      }
+      extendedTemplate.extended = true;
+      cachedTemplates[src][templateName] = extendedTemplate;
+      return extendedTemplate;
+    } else {
+      return template
+    }
   }
 
   /**
