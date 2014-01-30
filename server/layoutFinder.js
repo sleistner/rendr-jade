@@ -12,7 +12,9 @@ module.exports = function(jade) {
           filename: '/app/templates/' + name + '.jade'
         });
         var extendedTemplate = function(locals) {
-          _.extend(locals, jade.helpers);
+          Object.keys(jade.helpers).forEach(function(fnName) {
+            locals[fnName] = jade.helpers[fnName].bind(locals);
+          })
           return template.call(locals, locals);
         };
         callback(null, extendedTemplate);

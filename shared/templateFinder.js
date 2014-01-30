@@ -30,7 +30,9 @@ module.exports = function(jade) {
     // replace template with extendedtemplate
     if(!template.extended) {
       var extendedTemplate = function(locals) {
-        _.extend(locals, jade.helpers);
+        Object.keys(jade.helpers).forEach(function(fnName) {
+          locals[fnName] = jade.helpers[fnName].bind(locals);
+        })
         return template(locals, locals);
       }
       extendedTemplate.extended = true;

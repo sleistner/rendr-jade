@@ -36,15 +36,15 @@ rendr-jade
     },
 ```
 
-### Helpers methods are about tricky.
-helpers needs to be invoked with locals as context.
+### Helpers methods.
+helpers are binded to locals context, can are called as a function
 
 e.g.
 ```
 html(lang="en")
   head
   body
-    != view.call(locals, 'header', { title: appData.title })
+    != view('header', { title: appData.title })
 
     .main#page(role="main")
       .container.mvxl#content
