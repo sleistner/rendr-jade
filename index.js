@@ -1,8 +1,8 @@
-var jade = require('jade')
+var jade = require('jade');
 module.exports = function(options) {
   var localExports = {},
       templateFinder = require('./shared/templateFinder')(jade),
-      helpers = require('./shared/helpers')(jade, templateFinder);
+      helpers = require('./shared/helpers')(jade, templateFinder.getTemplate);
   /**
    * helpers
    */

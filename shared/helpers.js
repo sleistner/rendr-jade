@@ -11,7 +11,8 @@ module.exports = function(jade, getTemplate) {
       // it's lazy loaded, not a compile time dependency
       // hiding it from r.js compiler
       var lazyRequire_baseView = 'rendr/shared/base/view';
-      BaseView = BaseView || require(lazyRequire_baseView);
+      // BaseView = BaseView || require(lazyRequire_baseView);
+      BaseView = BaseView || require('rendr/shared/base/view');
       options = options || {};
       viewOptions = options;
 
@@ -51,20 +52,8 @@ module.exports = function(jade, getTemplate) {
 
     json: function(object, spacing) {
       return JSON.stringify(object, null, spacing);
-    },
+    }
 
-    /**
-     * Extend `each` to pass through important context.
-     */
-    // each: function(context, options) {
-    //   // options.data = Handlebars.createFrame(options.data || {});
-
-    //   // Make sure `this._app`, `this._view`, etc are available.
-    //   _.extend(options.data, getOptionsFromContext(this));
-
-    //   // Call the original helper with new context.
-    //   return oldEach.call(this, context, options);
-    // }
   };
 };
 

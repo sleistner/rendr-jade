@@ -1,5 +1,4 @@
 /*global rendr*/
-var cachedTemplates = {};
 var _ = require('underscore');
 module.exports = function(jade) {
 
@@ -8,6 +7,21 @@ module.exports = function(jade) {
    * should use different compiled template files.
    */
   var templatePatterns = [];
+  var cachedTemplates = {};
+
+  /**
+   * binds helpers to a jade template
+   */
+  function extendTemplate(template) {
+    var extendedTemplate = function(locals) {
+      _.each(jade.helpers, function(fn, fnName) {
+        locals[fnName] = fn.bind(locals);
+      });
+      return template.call(locals, locals);
+    }
+    extendedTemplate.extended = true;
+    return extendedTemplate;
+  };
 
   /**
    * Given a template name, return the compiled Handlebars template.
@@ -22,25 +36,20 @@ module.exports = function(jade) {
      */
     if (!cachedTemplates[src]) {
       cachedTemplates[src] = require(src);
-      if (typeof cachedTemplates[src] == 'function') {
+      if (typeof cachedTemplates[src] === 'function') {
         cachedTemplates[src] = cachedTemplates[src](jade);
       }
     }
     var template = cachedTemplates[src][templateName];
     // replace template with extendedtemplate
-    if(!template.extended) {
-      var extendedTemplate = function(locals) {
-        Object.keys(jade.helpers).forEach(function(fnName) {
-          locals[fnName] = jade.helpers[fnName].bind(locals);
-        })
-        return template(locals, locals);
-      }
-      extendedTemplate.extended = true;
-      cachedTemplates[src][templateName] = extendedTemplate;
-      return extendedTemplate;
-    } else {
-      return template
+    if(!template) {
+      throw new Error("template named '" + templateName + "' cannot be found");
     }
+    if(!template.extended) {
+      template = extendTemplate(template);
+      cachedTemplates[src][templateName] = template;
+    }
+    return template;
   }
 
   /**
@@ -62,6 +71,7 @@ module.exports = function(jade) {
   return {
     getTemplate: getTemplate,
     getSrcForTemplate: getSrcForTemplate,
-    templatePatterns: templatePatterns
+    templatePatterns: templatePatterns,
+    extendTemplate: extendTemplate
   }
 };
