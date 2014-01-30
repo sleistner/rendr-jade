@@ -31,13 +31,7 @@ rendr-jade
           node: true
         },
         src: ["app/templates/**/*.jade"],
-        dest: "app/templates/compiledTemplates.js",
-        filter: function(filepath) {
-          var filename = path.basename(filepath);
-          // Exclude files that begin with '__' from being sent to the client,
-          // i.e. __layout.hbs.
-          return filename.slice(0, 2) !== '__';
-        }
+        dest: "app/templates/compiledTemplates.js"
       }
     },
 ```
