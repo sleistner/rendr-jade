@@ -1,0 +1,6 @@
+h1 I am the header component
+a(href='/') Home 
+&nbsp;|&nbsp;
+a(href='/collections') Collections
+if _model
+  != view('components/user', { model: _model })

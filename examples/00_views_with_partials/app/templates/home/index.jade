@@ -1,0 +1,6 @@
+!= view('components/header', { model: _model })
+p Directly render user, extended getTemplateData in home/index view
+  != view('components/user', { model: user })
+h3 I am the 'home/index'
+ul
+  != partial('partials/partial_00', { param: 'partial locals passed' })

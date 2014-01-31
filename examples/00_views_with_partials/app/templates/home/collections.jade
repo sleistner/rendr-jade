@@ -1,0 +1,6 @@
+!= view('components/header')
+
+| Collections
+
+each model in models
+  != partial('components/user', model)

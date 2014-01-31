@@ -1,0 +1,14 @@
+html(lang="en")
+  head
+    title= appData.title
+  body
+    #content
+      != body
+  script(src='/mergedAssets.js')
+  script(type='text/javascript').
+    (function() {
+      var App = window.app = new (require('app/app'))(!{json(appData)});
+      App.bootstrapData(!{json(bootstrappedData)});
+      App.start();
+    })();
+
