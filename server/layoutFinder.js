@@ -1,9 +1,9 @@
 /*global rendr*/
 var fs = require('fs'),
     _ = require('underscore'),
-    templateFinder = require('../shared/templateFinder');
+    templateFinderFn = require('../shared/templateFinder');
 module.exports = function(jade) {
-  templateFinder = templateFinder(jade);
+  var templateFinder = templateFinderFn(jade);
   return {
     getLayout: function(name, entryPath, callback) {
       var layoutPath = entryPath + '/app/templates/' + name + '.jade';
