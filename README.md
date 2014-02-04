@@ -1,7 +1,10 @@
 rendr-jade
 ================
 
+!! This is still an experimental project.
+
 [jade](http://jade-lang.com/) template adapter for [Rendr](https://github.com/airbnb/rendr) apps.
+
 
 ### 1) Set the default templateAdapter to rendr-jade
 
